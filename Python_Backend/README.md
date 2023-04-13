@@ -84,7 +84,7 @@ JSON object containing the following fields:
 ## Example
 
 ```
-curl -X POST "http://localhost:8000/optimize_portfolio" -H "Content-Type: application/json" -d '{"csv_data": {"AAPL": "Date,adjusted_close\n2021-01-01,128.50\n2021-01-02,129.75\n2021-01-03,131.00", "MSFT": "Date,adjusted_close\n2021-01-01,219.75\n2021-01-02,220.50\n2021-01-03,221.25"}, "start_date": "2021-01-01", "end_date": "2021-01-03"}'
+curl -X POST "http://127.0.0.1:8000/optimize_portfolio" -H "Content-Type: application/json" -d '{"csv_data": {"AAPL": "Date,adjusted_close\n2021-01-01,128.50\n2021-01-02,129.75\n2021-01-03,131.00", "MSFT": "Date,adjusted_close\n2021-01-01,219.75\n2021-01-02,220.50\n2021-01-03,221.25"}, "start_date": "2021-01-01", "end_date": "2021-01-03"}'
 ```
 
 ## Testing

@@ -1,0 +1,38 @@
+I want you to create a backend API Server will be using Node.js, Express.js, and Typescript. 
+
+The API Server will responsible for handling the requests from the frontend and the backend Python HPC Server.
+Currently the backend HPC server has one endpoint /optimize_portfolio which will return the optimized portfolio.
+However, we will need to need to get the data to feed the Python HPC Server. 
+The data will be getting will be from ALPHA Vantage API, it will return a CSV file.
+We will need to combine all the relevant CSV file strings into array that will feed into the Python HPC Server.
+The array will have this format [{stock_ticker, csv_file_string},{stock_ticker, csv_file_string} ...]
+
+Here is an example of a POST to optimize_portfolio:
+```
+curl -X POST "http://127.0.0.1:8000/optimize_portfolio" -H "Content-Type: application/json" -d '{"csv_data": {"AAPL": "Date,adjusted_close\n2021-01-01,128.50\n2021-01-02,129.75\n2021-01-03,131.00", "MSFT": "Date,adjusted_close\n2021-01-01,219.75\n2021-01-02,220.50\n2021-01-03,221.25"}, "start_date": "2021-01-01", "end_date": "2021-01-03"}'
+```
+
+Here is an example of a GET to Alpha Vantage:
+https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=AAPL&apikey={DXMJ7O7ITS7K3JFJ}&outputsize=full&datatype=csv
+
+Will be using the GET to Alpha Vantage to get the CSV file string for each stock symbol.
+
+Our POST to optimize_portfolio will include all of the following:
+```
+class PortfolioOptimizationRequest(BaseModel):
+    csv_data: Dict[str, str]
+    start_date: str
+    end_date: str
+    pop_size: int = 100
+    num_generations: int = 100
+    risk_free_rate: float = 0.02
+```
+
+However prior to executing this POST, we will execute a series of GET to Alpha Vantage to get the CSV file string for each stock symbol.
+The list of Stock symbols will be provided by the frontend.
+We will then make a GET request to our cache server to see if we have the CSV file string for each stock symbol.
+If we do not have the CSV file string for each stock symbol, we will make a GET request to Alpha Vantage to get the CSV file string for each stock symbol.
+We will then make a POST request to our cache server to store the CSV file string for each stock symbol.
+We will then make a POST request to our backend HPC server to execute the POST to optimize_portfolio.
+
+Can you give me a basic layout for this backend API Server?
