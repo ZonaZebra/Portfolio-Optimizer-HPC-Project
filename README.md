@@ -19,15 +19,15 @@ cd Portfolio-Optimizer-HPC-Project
 
 2. Set up and run the API Server:
 
-- Follow the instructions in the API-Server directory.
+- Follow the instructions in the portfolio-optimizer-api-backend directory.
 
 3. Set up and run the Python HPC Server:
 
-- Follow the instructions in the Python-HPC-Backend directory.
+- Follow the instructions in the portfolio-optimizer-hpc-backend directory.
 
 4. Set up and run the Frontend:
 
-- Follow the instructions in the React-Frontend directory.
+- Follow the instructions in the portfolio-optimizer-frontend directory.
 
 # Usage
 
