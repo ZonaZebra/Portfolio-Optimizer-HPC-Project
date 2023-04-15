@@ -21,7 +21,7 @@ const Result = ({ optimizedPortfolio, fitness }) => {
           outerRadius={150}
           fill="#8884d8"
         >
-          {data.map((entry, index) => (
+          {data.map((_entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

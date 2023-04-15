@@ -7,6 +7,9 @@ import Result from "./components/Result";
 const App = () => {
   const [stocks] = useState(["AAPL", "GOOG", "TSLA", "MSFT", "AMZN", "FB"]);
   const [selectedStocks, setSelectedStocks] = useState([]);
+  const [chartData, setChartData] = useState(null);
+  const [optimizedPortfolio, setOptimizedPortfolio] = useState(null);
+  const [fitness, setFitness] = useState(null);
   const [parameters, setParameters] = useState({
     start_date: "",
     end_date: "",
@@ -14,8 +17,6 @@ const App = () => {
     num_generations: 100,
     risk_free_rate: 0.02,
   });
-  const [optimizedPortfolio, setOptimizedPortfolio] = useState(null);
-  const [fitness, setFitness] = useState(null);
 
   const handleStocksChange = (selectedStocks) => {
     setSelectedStocks(selectedStocks);
@@ -26,6 +27,19 @@ const App = () => {
     setParameters({ ...parameters, [field]: value });
   };
 
+  // const processOptimizationResult = (data) => {
+  //   const { allocation, fitness } = data;
+  //   const chartData = Object.keys(allocation).map((stock) => {
+  //     return {
+  //       name: stock,
+  //       value: allocation[stock]
+  //     };
+  //   });
+
+  //   setChartData(chartData);
+  //   setFitness(fitness);
+  // };
+  
   const handleSubmit = async () => {
     try {
       console.log("Submitting request with parameters:", {
@@ -38,9 +52,12 @@ const App = () => {
       });
 
       console.log("Received response:", response.data);
+      console.log("Input: ", response.data.optimizedPortfolio.allocation)
   
-      setOptimizedPortfolio(response.data);
-      setFitness(response.data.fitness);
+    // processOptimizationResult(response.data);
+    setOptimizedPortfolio(response.data.optimizedPortfolio.allocation);
+    setFitness(response.data.fitness);
+    // setChartData(response.data.allocation)
     } catch (error) {
       console.error("Error:", error);
     }
